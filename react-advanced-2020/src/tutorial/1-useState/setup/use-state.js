@@ -1,26 +1,24 @@
 import React, {useState} from 'react';
-import {data} from '../../../data'
 
-// Example of useState usage on arrays
+// Example of useState usage on object
 const UseState = () => {
-  const [people, setPeople] = useState(data);
+  const [person, setPeople] = useState({
+    name: "jacek",
+    age: 25,
+    message: "socialism is disease of 21st century"
+  });
 
-  const removeItem = (id) => {
-    let newPeople = people.filter(person => person.id !== id);
-    setPeople(newPeople)
+  const {name, age, message} = person;
+
+  const changePerson = () => {
+    setPeople({...person, message: "Bonk!"});
   }
 
   return <React.Fragment>
-    {
-      people.map(person => {
-        const {id, name} = person;
-        return <div key={id} className="item">
-          <h4>{name}</h4>
-          <button type="button" onClick={() => removeItem(id)}>Delete {name}</button>
-        </div>;
-      })
-    }
-    <button className="btn" onClick={() => setPeople([])}>Delete all people</button>
+    <h4>{name}</h4>
+    <h4>{age}</h4>
+    <h4>{message}</h4>
+    <button type="button" className="btn" onClick={() => changePerson()}>Change {name}'s message!</button>
   </React.Fragment>;
 };
 

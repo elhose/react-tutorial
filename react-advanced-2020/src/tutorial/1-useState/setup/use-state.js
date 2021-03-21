@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-// Now after initialization of the component, there is no option, to change the title
+// Used React Hooks, to change Title back and forth in UseState component
 const UseState = () => {
-  let title = "Random title!1324"
+  const initialTitle = "Random title!1324";
+  const [title, setTitle] = useState(initialTitle);
 
   function handleClick() {
-    title = "hello people"
-    console.log(title)
+    const changedTitleName = "Changed title!";
+    if (title === initialTitle) {
+      setTitle(changedTitleName);
+    } else {
+      setTitle(initialTitle)
+    }
   }
 
   return <React.Fragment>

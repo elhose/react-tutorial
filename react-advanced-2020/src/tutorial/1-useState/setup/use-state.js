@@ -1,22 +1,26 @@
 import React, {useState} from 'react';
+import {data} from '../../../data'
 
-// Used React Hooks, to change Title back and forth in UseState component
+// Example of useState usage on arrays
 const UseState = () => {
-  const initialTitle = "Random title!1324";
-  const [title, setTitle] = useState(initialTitle);
+  const [people, setPeople] = useState(data);
 
-  function handleClick() {
-    const changedTitleName = "Changed title!";
-    if (title === initialTitle) {
-      setTitle(changedTitleName);
-    } else {
-      setTitle(initialTitle)
-    }
+  const removeItem = (id) => {
+    let newPeople = people.filter(person => person.id !== id);
+    setPeople(newPeople)
   }
 
   return <React.Fragment>
-    <h2>{title}</h2>
-    <button type="button" className="btn" onClick={() => handleClick()}> Change Title</button>
+    {
+      people.map(person => {
+        const {id, name} = person;
+        return <div key={id} className="item">
+          <h4>{name}</h4>
+          <button type="button" onClick={() => removeItem(id)}>Delete {name}</button>
+        </div>;
+      })
+    }
+    <button className="btn" onClick={() => setPeople([])}>Delete all people</button>
   </React.Fragment>;
 };
 

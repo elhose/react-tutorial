@@ -2,23 +2,25 @@ import React, {useState} from 'react';
 
 // Example of useState usage on object
 const UseState = () => {
-  const [person, setPeople] = useState({
-    name: "jacek",
-    age: 25,
-    message: "socialism is disease of 21st century"
-  });
+  const [value, setValue] = useState(0);
 
-  const {name, age, message} = person;
-
-  const changePerson = () => {
-    setPeople({...person, message: "Bonk!"});
-  }
+  const resetCounter = () => {
+    setValue(0);
+  };
 
   return <React.Fragment>
-    <h4>{name}</h4>
-    <h4>{age}</h4>
-    <h4>{message}</h4>
-    <button type="button" className="btn" onClick={() => changePerson()}>Change {name}'s message!</button>
+    <section style={{margin: '4rem 0'}}>
+      <h2>regular counter</h2>
+      <h1>{value}</h1>
+      <button className="btn" onClick={() => setValue(value - 1)}>decrease</button>
+      <button className="btn" onClick={() => resetCounter()}>reset</button>
+      <button className="btn" onClick={() => setValue(value + 1)}>increase</button>
+    </section>
+    <section style={{margin: '4rem 0'}}>
+      <h2>complex counter</h2>
+      <h1>{value}</h1>
+      <button className="btn" onClick={() => setValue(value - 1)}>complex increase</button>
+    </section>
   </React.Fragment>;
 };
 

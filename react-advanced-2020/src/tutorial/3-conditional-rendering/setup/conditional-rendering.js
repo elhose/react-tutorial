@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
 
-function ConditionalRendering() {
-	const [text, setText] = useState("");
-	const [isError, setIsError] = useState(false);
-	// const firstValue = text || "hello world";
-	// const secondValue = text && "hello world";
+function ShowHide() {
+	const [show, setShow] = useState(false);
 
 	return (
 		<>
-			<h1>{text || "john doe"}</h1>
-			<button
-				className="btn"
-				onClick={() => {
-					setIsError(!isError);
-				}}
-			>
-				toggle error
+			<button className="btn" onClick={() => setShow(!show)}>
+				show/hide
 			</button>
-			<h1>{isError && "Gotcha!"}</h1>
-			<h1>{isError ? "Gotcha!" : "The same behaviour using ternary operator"}</h1>
+			{show && <Item />}
 		</>
 	);
 }
 
-export default ConditionalRendering;
+const Item = () => {
+	const [size, setSize] = useState(window.innerWidth);
+	const checkSize = () => {
+		setSize(window.innerWidth);
+	};
+	useEffect(() => {
+		window.addEventListener("resize", checkSize);
+		return () => window.removeEventListener("resize", checkSize);
+	}, []);
+	return (
+		<div style={{ marginTop: "2rem" }}>
+			<h1>window</h1>
+			<h2>size: {size} Px</h2>
+		</div>
+	);
+};
+
+export default ShowHide;

@@ -1,55 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-const url = "https://api.github.com/users/QuincyLarsonXD";
-
 function ConditionalRendering() {
-	const [isLoading, setIsLoading] = useState(true);
-	const [isError, setIsError] = useState(false);
-	const [user, setUser] = useState("default User");
-
-	useEffect(() => {
-		fetch(url)
-			.then((response) => {
-				if (response.status === 200) {
-					return response.json();
-				} else {
-					setIsLoading(false);
-					setIsError(true);
-					throw new Error(response.statusText);
-				}
-			})
-			.then((user) => {
-				const { login } = user;
-				setUser(login);
-				setIsLoading(false);
-				setIsError(false);
-				console.log(user);
-			})
-			.catch((error) => {
-				console.log(error);
-				setIsError(true);
-			});
-	}, []);
-
-	if (isLoading) {
-		return (
-			<>
-				<h1>Loading...</h1>
-			</>
-		);
-	}
-
-	if (isError) {
-		return (
-			<>
-				<h1>Error !!!</h1>
-			</>
-		);
-	}
+	const [text, setText] = useState("Peter");
+	const firstValue = text || "hello world";
+	const secondValue = text && "hello world";
 
 	return (
 		<>
-			<h1>{user}</h1>
+			{/* <h1>short-circuit evaluation with ternary operation</h1> */}
+      {/* <h1>First value is -&gt; {firstValue}</h1> */}
+      {/* <h1>Second value is -&gt; {secondValue}</h1> */}
+      <h1>{text || "john doe"}</h1>
+      <h1>{text && "Emilly Jones"}</h1>
 		</>
 	);
 }

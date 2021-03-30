@@ -8,10 +8,10 @@ function App() {
 	const [loading, setLoading] = useState(true);
 	const [tours, setTours] = useState([]);
 
-  const removeTour = (id => {
-      const newTours = tours.filter((tour) => tour.id !== id);
-      setTours(newTours);
-  })
+	const removeTour = (id) => {
+		const newTours = tours.filter((tour) => tour.id !== id);
+		setTours(newTours);
+	};
 
 	const fetchData = async () => {
 		try {
@@ -28,6 +28,7 @@ function App() {
 	useEffect(() => {
 		fetchData();
 	}, []);
+
 	if (loading) {
 		return (
 			<main>
@@ -36,9 +37,21 @@ function App() {
 		);
 	}
 
+	if (tours.length === 0) {
+		return (
+			<main>
+				<div className="title">
+					<button className="btn" onClick={() => fetchData()}>
+						No Tours Left! Refresh?
+					</button>
+				</div>
+			</main>
+		);
+	}
+
 	return (
 		<main>
-			<Tours tours={tours} removeTour = {removeTour}/>
+			<Tours tours={tours} removeTour={removeTour} />
 		</main>
 	);
 }

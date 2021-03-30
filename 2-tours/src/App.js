@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Loading from "./Loading";
+import Tours from "./Tours";
 
 const url = "https://course-api.com/react-tours-project";
 
@@ -8,10 +9,15 @@ function App() {
 	const [tours, setTours] = useState([]);
 
 	const fetchData = async () => {
-		const response = await fetch(url);
-		const tours = await response.json();
-		setTours(tours);
-		setLoading(false);
+		try {
+			const response = await fetch(url);
+			const fetchedTours = await response.json();
+			setTours(fetchedTours);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
@@ -25,7 +31,11 @@ function App() {
 		);
 	}
 
-	return <main>Tours Project Setup</main>;
+	return (
+		<main>
+			<Tours tours={tours}/>
+		</main>
+	);
 }
 
 export default App;

@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Categories from "./Categories";
 import Menu from "./Menu";
-import data from "./data";
+import items from "./data";
 
 function App() {
 	const initialCategoriesState = "all";
-	const [menu, setMenu] = useState(data);
+	const [menuItems, setMenuItems] = useState(items);
 	const [categories, setCategories] = useState(initialCategoriesState);
 
 	const getCategories = () => {
-		let filteredCategories = menu.map((menuItem) => menuItem.category);
-		let uniqueCategories = [...new Set(filteredCategories), initialCategoriesState];
+		let filteredCategories = menuItems.map((menuItem) => menuItem.category);
+		let uniqueCategories = [
+			...new Set(filteredCategories),
+			initialCategoriesState,
+		];
 		setCategories(uniqueCategories);
 	};
 
 	useEffect(() => {
 		getCategories();
 	}, []);
+
+	const filterItems = (category) => {
+		const filteredItems = items.filter(
+			(item) => item.category === category
+		);
+		setMenuItems(filteredItems);
+	};
 
 	return (
 		<main>
@@ -26,8 +36,8 @@ function App() {
 					<div className="underline"></div>
 				</div>
 			</section>
-			<Categories/>
-      <Menu items={menu}/>
+			<Categories filterItems={filterItems}/>
+			<Menu items={menuItems} />
 		</main>
 	);
 }

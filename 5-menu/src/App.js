@@ -27,7 +27,7 @@ function App() {
 				</div>
 			</section>
 			<Categories/>
-      <Menu/>
+      <Menu items={menu}/>
 		</main>
 	);
 }

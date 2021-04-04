@@ -7,6 +7,21 @@ function App() {
 	const [people, setPeople] = useState(data);
 	const [index, setIndex] = useState(0);
 
+	const nextPerson = () => {
+		if (index + 1 >= people.length) {
+			setIndex(0);
+			return;
+		}
+		setIndex(index + 1);
+	};
+	const prevPerson = () => {
+		if (index - 1 < 0) {
+			setIndex(people.length-1);
+			return;
+		}
+		setIndex(index - 1);
+	};
+
 	const { id, image, name, title, quote } = people[index];
 	return (
 		<>
@@ -21,10 +36,16 @@ function App() {
 				<article>
 					<img className="person-img" src={image} alt={name} />
 					<h4>{name}</h4>
-					<h5>{title}</h5>
+					<p className="title">{title}</p>
 					<p className="text">{quote}</p>
 					<FaQuoteRight className="icon" />
 				</article>
+				<button className="prev" onClick={() => prevPerson()}>
+					<FiChevronLeft />
+				</button>
+				<button className="next" onClick={() => nextPerson()}>
+					<FiChevronRight />
+				</button>
 			</section>
 		</>
 	);

@@ -8,9 +8,9 @@ const Question = ({ id, info, title }) => {
 			<div className="question">
 				<header>
 					<h4>{title}</h4>
-					<button className="btn">siema</button>
+					<button className="btn" onClick={() => {setMoreInfo(!moreInfo)}}>{moreInfo ? "+" : "-"}</button>
 				</header>
-				<p>{info}</p>
+				<p>{moreInfo ? info : ""}</p>
 			</div>
 		</>
 	);

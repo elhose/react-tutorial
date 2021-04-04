@@ -13,9 +13,10 @@ function App() {
 		try {
 			const response = await fetch(url);
 			const body = await response.json();
-			setInitialized(true);
 			setJobs(body);
+			setInitialized(true);
 		} catch (err) {
+			console.log(err);
 			setInitialized(false);
 			console.log(err);
 		}

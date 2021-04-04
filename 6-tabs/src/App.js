@@ -6,6 +6,7 @@ const url = "https://course-api.com/react-tabs-project";
 function App() {
 	const [initialized, setInitialized] = useState(false);
 	const [jobs, setJobs] = useState([]);
+	const [jobNumber, setJobNumber] = useState(0);
 	useEffect(() => {
 		fetchData();
 	}, []);
@@ -19,15 +20,14 @@ function App() {
 		} catch (err) {
 			console.log(err);
 			setInitialized(false);
-			console.log(err);
 		}
 	};
-
-	console.log(jobs);
 
 	if (!initialized) {
 		return <h1 className="loading">LOADING ...</h1>;
 	}
+
+	const { company, dates, duties, title } = jobs[jobNumber];
 
 	return (
 		<main className="section">
@@ -37,20 +37,35 @@ function App() {
 			</section>
 			<section className="job-center">
 				<div className="btn-container">
-					{jobs.map((entry) => {
-						const { id, company } = entry;
+					{jobs.map((job, index) => {
+						const { id, company } = job;
 						return (
 							<button
 								key={id}
-								className="job-btn"
+								className={`job-btn ${
+									jobNumber === index && "active-btn"
+								}`}
 								type="button"
+								onClick={() => setJobNumber(index)}
 							>
 								{company}
 							</button>
 						);
 					})}
 				</div>
-				<div className="job-info"></div>
+				<article className="job-info">
+					<h3>{title}</h3>
+					<h4>{company}</h4>
+					<p className="job-date">{dates}</p>
+					{duties.map((duty, index) => {
+						return (
+							<div key={index} className="job-desc">
+								<FaAngleDoubleRight className="job-icon" />
+								<p>{duty}</p>
+							</div>
+						);
+					})}
+				</article>
 			</section>
 		</main>
 	);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { FaQuoteRight } from "react-icons/fa";
 import data from "./data";
@@ -6,6 +6,13 @@ import data from "./data";
 function App() {
 	const [people, setPeople] = useState(data);
 	const [index, setIndex] = useState(0);
+
+	useEffect(() => {
+		let slider = setInterval(() => {
+			nextPerson();
+		}, 3000);
+		return () => clearInterval(slider);
+	}, [index]);
 
 	const nextPerson = () => {
 		if (index + 1 >= people.length) {
@@ -27,7 +34,10 @@ function App() {
 		if (personIndex === index) {
 			return "activeSlide";
 		}
-		if (personIndex === index - 1 || (index === 0 && personIndex === people.length)) {
+		if (
+			personIndex === index - 1 ||
+			(index === 0 && personIndex === people.length)
+		) {
 			return "lastSlide";
 		}
 		return "nextSlide";

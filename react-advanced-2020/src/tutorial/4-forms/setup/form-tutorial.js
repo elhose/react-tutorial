@@ -6,26 +6,27 @@ import React, { useState } from "react";
 // value, onChange
 
 const MultipleInputs = () => {
-	const [firstName, setFirstName] = useState("");
-	const [email, setEmail] = useState("");
-	const [age, setAge] = useState("");
+	const initialPersonState = { firstName: "", email: "", age: "" };
+	const [person, setPerson] = useState(initialPersonState);
 	const [people, setPeople] = useState([]);
+
+	const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setPerson({ ...person, [name]: value });
+		console.log(person);
+	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (firstName && email && age) {
-			const person = {
+		if (person.firstName && person.email && person.age) {
+			let personWithId = {
+				...person,
 				id: new Date().getTime().toString(),
-				firstName,
-				email,
-				age,
 			};
-			setPeople((people) => {
-				return [...people, person];
-			});
-			setFirstName("");
-			setEmail("");
-			console.log(person);
+			console.log(personWithId);
+			setPeople([...people, personWithId]);
+			setPerson(initialPersonState);
 		}
 	};
 
@@ -39,8 +40,8 @@ const MultipleInputs = () => {
 							type="text"
 							id="firstName"
 							name="firstName"
-							value={firstName}
-							onChange={(e) => setFirstName(e.target.value)}
+							value={person.firstName}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="form-control">
@@ -49,8 +50,8 @@ const MultipleInputs = () => {
 							type="text"
 							id="email"
 							name="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							value={person.email}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="form-control">
@@ -59,8 +60,8 @@ const MultipleInputs = () => {
 							type="text"
 							id="age"
 							name="age"
-							value={age}
-							onChange={(e) => setAge(e.target.value)}
+							value={person.age}
+							onChange={handleChange}
 						/>
 					</div>
 					<button type="submit" onClick={handleSubmit}>

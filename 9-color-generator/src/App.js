@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Values from "values.js";
 import SingleColor from "./SingleColor";
 
+const numOfGenColors = 10; 
+const baseColor = "#f15025";
+
 function App() {
 	const [color, setColor] = useState("");
 	const [error, setError] = useState(false);
-	const [list, setList] = useState([]);
-  const numOfGenColors = 10; 
+	const [list, setList] = useState(new Values(baseColor).all(numOfGenColors));
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

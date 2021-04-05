@@ -5,18 +5,20 @@ import React, { useState } from "react";
 // React
 // value, onChange
 
-const ControlledInputs = () => {
+const MultipleInputs = () => {
 	const [firstName, setFirstName] = useState("");
 	const [email, setEmail] = useState("");
+	const [age, setAge] = useState("");
 	const [people, setPeople] = useState([]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (firstName && email) {
+		if (firstName && email && age) {
 			const person = {
 				id: new Date().getTime().toString(),
 				firstName,
 				email,
+				age,
 			};
 			setPeople((people) => {
 				return [...people, person];
@@ -51,15 +53,26 @@ const ControlledInputs = () => {
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
+					<div className="form-control">
+						<label htmlFor="age">Age: </label>
+						<input
+							type="text"
+							id="age"
+							name="age"
+							value={age}
+							onChange={(e) => setAge(e.target.value)}
+						/>
+					</div>
 					<button type="submit" onClick={handleSubmit}>
 						add person
 					</button>
 				</form>
 				{people.map((person) => {
-					const { id, firstName, email } = person;
+					const { id, firstName, email, age } = person;
 					return (
 						<div key={id} className="item">
 							<h4>{firstName}</h4>
+							<h5>{age}</h5>
 							<p>{email}</p>
 						</div>
 					);
@@ -69,4 +82,4 @@ const ControlledInputs = () => {
 	);
 };
 
-export default ControlledInputs;
+export default MultipleInputs;

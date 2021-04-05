@@ -8,7 +8,14 @@ function App() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log("hello");
+		try {
+			const validatedColors = new Values(color).all(10);
+			setList(validatedColors);
+			setError(false);
+		} catch (err) {
+			setError(true);
+			console.log("Error", err);
+		}
 	};
 
 	return (
@@ -17,6 +24,7 @@ function App() {
 				<h3>color generator</h3>
 				<form>
 					<input
+						className={`${error && "error"}`}
 						type="text"
 						value={color}
 						onChange={(event) => {

@@ -6,11 +6,12 @@ function App() {
 	const [color, setColor] = useState("");
 	const [error, setError] = useState(false);
 	const [list, setList] = useState([]);
+  const numOfGenColors = 10; 
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		try {
-			const validatedColors = new Values(color).all(10);
+			const validatedColors = new Values(color).all(numOfGenColors);
 			setList(validatedColors);
 			setError(false);
 		} catch (err) {
@@ -44,7 +45,13 @@ function App() {
 			</section>
 			<section className="colors">
 				{list.map((color, index) => {
-					return <SingleColor {...color} key={index} index={index} />;
+					return (
+						<SingleColor
+							{...color}
+							key={index}
+							lightText={index > numOfGenColors}
+						/>
+					);
 				})}
 			</section>
 		</>

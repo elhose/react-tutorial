@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Values from "values.js";
+import SingleColor from "./SingleColor";
 
 function App() {
 	const [color, setColor] = useState("");
@@ -42,7 +43,9 @@ function App() {
 				</form>
 			</section>
 			<section className="colors">
-				<h4>here goes list</h4>
+				{list.map((color, index) => {
+					return <SingleColor {...color} key={index} index={index} />;
+				})}
 			</section>
 		</>
 	);
